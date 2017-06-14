@@ -1,14 +1,14 @@
 #pragma once
 //
 // Created by antoine on 13/06/2017.
-//
 
+#define DllExport   __declspec( dllexport )
 #include <cassert>
 #include <cstdlib>
 #include <tgmath.h>
 #include <iostream>
 
-class MLP {
+class DllExport MLP {
 public:
     MLP(int *structure, int nbLayer) : nbLayer(nbLayer) {
         assert(nbLayer >= 2);

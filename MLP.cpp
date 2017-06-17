@@ -28,8 +28,7 @@ void MLP::fitClassification(double *inputs, int inputSize, int inputsSize, doubl
             oneExpectedOutput[j] = expectedOutputs[i];
         }
         // Classification
-        classify(oneInput, inputSize, &oneExpectedOutput,
-                 outputSize);
+        classify(oneInput, inputSize);
         fitClassifOneInput(oneInput, inputSize,
                            oneExpectedOutput, outputSize);
         if (iterations++ >= maxIterations) {
@@ -71,17 +70,15 @@ void MLP::fitClassifOneInput(double *oneInput, int inputSize, double *oneOutput,
 }
 // Set all the neurons considering the input and weight
 // Set the oneOutput variable
-void MLP::classify(double *oneInput, int inputSize, double **oneOutput, int outputSize) {
+void MLP::classify(double *oneInput, int inputSize) {
     assert(oneInput);
-    assert(oneOutput);
     assert(inputSize > 0);
-    assert(outputSize > 0);
     if(modelLearned == 1){
         // set the input layer with the input given plus the bias neuron
         for (int i = 0; i< inputSize; ++i) {
             neurons[0][i] = oneInput[i];
         }
-        neurons[0][inputSize] = 1;
+        neurons[0][inputSize] = 1; // Bias
         // Set all the neurons of the model
         for (int layerNb = 1; layerNb < nbLayer; ++layerNb) {
             for (int neuronNb = 0; neuronNb < structure[layerNb] + 1; ++neuronNb) {
@@ -93,6 +90,13 @@ void MLP::classify(double *oneInput, int inputSize, double **oneOutput, int outp
             }
         }
     } else{
+        std::cout << "Sorry you have to train a classification model to call classify" << std::endl;
+    }
+}
+double MLP::getOutputsforClassif(){
+    if(modelLearned == 1){
+        return (neurons[nbLayer-1][0] < 0) ?-1 : 1;
+    }else{
         std::cout << "Sorry you have to train a classification model to call classify" << std::endl;
     }
 }
@@ -121,8 +125,7 @@ void MLP::fitRegression(double *inputs, int inputSize, int inputsSize, double *e
             oneExpectedOutput[j] = expectedOutputs[i];
         }
         // Regression
-        predict(oneInput, inputSize, &oneExpectedOutput,
-                outputSize);
+        predict(oneInput, inputSize);
         fitRegreOneInput(oneInput, inputSize,
                          oneExpectedOutput, outputSize);
         if (iterations++ >= maxIterations) {
@@ -164,11 +167,9 @@ void MLP::fitRegreOneInput(double *oneInput, int inputSize, double *oneOutput, i
 }
 // Set all the neurons considering the input and weight
 // Set the oneOutput variable
-void MLP::predict(double* oneInput, int inputSize, double** oneOutput, int outputSize) {
+void MLP::predict(double* oneInput, int inputSize) {
     assert(oneInput);
-    assert(oneOutput);
     assert(inputSize > 0);
-    assert(outputSize > 0);
     if (modelLearned == 2) {
         // set the input layer with the input given plus the bias neuron
         for (int i = 0; i < inputSize; ++i) {
@@ -189,6 +190,13 @@ void MLP::predict(double* oneInput, int inputSize, double** oneOutput, int outpu
                 }
             }
         }
+    }else{
+        std::cout << "Please train a regression model to call predict" << std::endl;
+    }
+}
+double MLP::getOutputsforRegression(){
+    if(modelLearned == 2){
+        return neurons[nbLayer-1][0] ;
     }else{
         std::cout << "Please train a regression model to call predict" << std::endl;
     }

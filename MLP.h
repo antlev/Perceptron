@@ -2,7 +2,7 @@
 //
 // Created by antoine on 13/06/2017.
 
-#define DllExport   __declspec( dllexport )
+#define DllExport __declspec( dllexport )
 #include <cassert>
 #include <cstdlib>
 #include <tgmath.h>
@@ -56,12 +56,14 @@ public:
             }
         }
     }
-    void classify(double *oneInput, int inputSize, double **oneOutput, int outputSize);
+    void classify(double *oneInput, int inputSize);
     void fitClassification(double *inputs, int inputSize, int inputsSize, double *expectedOutputs,
                            int outputSize);
     void fitRegression(double *inputs, int inputSize, int inputsSize, double *expectedOutputs,
                        int outputSize) ;
-    void predict(double* oneInput, int inputSize, double** oneOutput, int outputSize);
+    void predict(double* oneInput, int inputSize);
+    double getOutputsforClassif();
+    double getOutputsforRegression();
 
 private:
     double ***weights;

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "MLP.h"
+#include "RBF.h"
 
 int main() {
      std::cout << "Testing MLP Classification" << std::endl;
@@ -165,5 +166,104 @@ int main() {
     testRegressionMLP->predict(testRegressionMLP_oneInput,testRegressionMLP_inputSize);
     std::cout << "Response for input = [" << testRegressionMLP_oneInput[0] << "][" << testRegressionMLP_oneInput[1] << "] "
             "->" << testRegressionMLP->getOutputsforRegression() << "< expected : 0.5" << std::endl;
+
+
+
+//    std::cout << "Testing Naive RBF..." << std::endl;
+//    int RBF_nbExamples = 4;
+//    double gamma = 1;
+//    int RBF_inputSize = 2;
+//    int RBF_outputSize = 1;
+//    double* rbfInputs = new double[RBF_nbExamples*RBF_inputSize];
+//    double* rbfOneInput = new double[RBF_inputSize];
+//    double* rbfOutputs = new double[RBF_nbExamples];
+//    double rbfOneOutput;
+//    rbfInputs[0] = 0.2;
+//    rbfInputs[1] = 0.5;
+//    rbfOutputs[0] = 1;
+//
+//    rbfInputs[2] = 0.7;
+//    rbfInputs[3] = 0.8;
+//    rbfOutputs[1] = 1;
+//
+//    rbfInputs[4] = 0.6;
+//    rbfInputs[5] = 0.2;
+//    rbfOutputs[2] = -1;
+//
+//    rbfInputs[6] = 0.9;
+//    rbfInputs[7] = 0.5;
+//    rbfOutputs[3] = -1;
+//
+//    Eigen::MatrixXd weights = RBF::naiveLearnWeights(RBF_nbExamples, gamma, rbfInputs, RBF_inputSize, rbfOutputs);
+//
+//    rbfOneInput[0] = 0.2;
+//    rbfOneInput[1] = 0.5;
+//    RBF::getRBFResponse(weights, gamma, rbfOneInput, RBF_inputSize, &rbfOneOutput, rbfInputs, RBF_nbExamples);
+//    std::cout << "Response for input = [" << rbfOneInput[0] << "][" << rbfOneInput[1] << "] ->" << rbfOneOutput << "< expected 1" << std::endl;
+//    rbfOneInput[0] = 0.7;
+//    rbfOneInput[1] = 0.8;
+//    RBF::getRBFResponse(weights, gamma, rbfOneInput, RBF_inputSize, &rbfOneOutput, rbfInputs, RBF_nbExamples);
+//    std::cout << "Response for input = [" << rbfOneInput[0] << "][" << rbfOneInput[1] << "] ->" << rbfOneOutput << "< expected 1" << std::endl;
+//    rbfOneInput[0] = 0.6;
+//    rbfOneInput[1] = 0.2;
+//    RBF::getRBFResponse(weights, gamma, rbfOneInput, RBF_inputSize, &rbfOneOutput, rbfInputs, RBF_nbExamples);
+//    std::cout << "Response for input = [" << rbfOneInput[0] << "][" << rbfOneInput[1] << "] ->" << rbfOneOutput << "< expected -1" << std::endl;
+//    rbfOneInput[0] = 0.9;
+//    rbfOneInput[1] = 0.5;
+//    RBF::getRBFResponse(weights, gamma, rbfOneInput, RBF_inputSize, &rbfOneOutput, rbfInputs, RBF_nbExamples);
+//    std::cout << "Response for input = [" << rbfOneInput[0] << "][" << rbfOneInput[1] << "] ->" << rbfOneOutput << "< expected -1" << std::endl;
+//
+//
+//    rbfOneInput[0] = 0.2;
+//    rbfOneInput[1] = 0.7;
+//    RBF::getRBFResponse(weights, gamma, rbfOneInput, RBF_inputSize, &rbfOneOutput, rbfInputs, RBF_nbExamples);
+//    std::cout << "Response for input = [" << rbfOneInput[0] << "][" << rbfOneInput[1] << "] ->" << rbfOneOutput << "< expected 1" << std::endl;
+//    rbfOneInput[0] = 0.4;
+//    rbfOneInput[1] = 0.8;
+//    RBF::getRBFResponse(weights, gamma, rbfOneInput, RBF_inputSize, &rbfOneOutput, rbfInputs, RBF_nbExamples);
+//    std::cout << "Response for input = [" << rbfOneInput[0] << "][" << rbfOneInput[1] << "] ->" << rbfOneOutput << "< expected 1" << std::endl;
+//    rbfOneInput[0] = 0.5;
+//    rbfOneInput[1] = 0.1;
+//    RBF::getRBFResponse(weights, gamma, rbfOneInput, RBF_inputSize, &rbfOneOutput, rbfInputs, RBF_nbExamples);
+//    std::cout << "Response for input = [" << rbfOneInput[0] << "][" << rbfOneInput[1] << "] ->" << rbfOneOutput << "< expected -1" << std::endl;
+//    rbfOneInput[0] = 0.7;
+//    rbfOneInput[1] = 0.5;
+//    RBF::getRBFResponse(weights, gamma, rbfOneInput, RBF_inputSize, &rbfOneOutput, rbfInputs, RBF_nbExamples);
+//    std::cout << "Response for input = [" << rbfOneInput[0] << "][" << rbfOneInput[1] << "] ->" << rbfOneOutput << "< expected -1" << std::endl;
+//
+
+    std::cout << "Testing Lloyd algorithm..." << std::endl;
+
+//    static double* lloydAlgorithm(double* inputs, int inputSize, int nbData, int nbRepresentatives);
+
+    int lloydNbRepresentant = 2;
+    int lloydNbInputs = 6;
+    int lloydInputSize = 2;
+    double* lloydInputs = new double[lloydNbInputs*lloydInputSize];
+    double *lloydRepresentant;
+
+    // init inputs
+    lloydInputs[0] = 0.15;
+    lloydInputs[1] = 0.75;
+
+    lloydInputs[2] = 0.2;
+    lloydInputs[3] = 0.8;
+
+    lloydInputs[4] = 0.25;
+    lloydInputs[5] = 0.9;
+
+    lloydInputs[6] = 0.5;
+    lloydInputs[7] = 0.2;
+
+    lloydInputs[8] = 0.7;
+    lloydInputs[9] = 0.25;
+
+    lloydInputs[10] = 0.6;
+    lloydInputs[11] = 0.3;
+
+    lloydRepresentant = RBF::lloydAlgorithm(lloydInputs, lloydInputSize, lloydNbInputs, lloydNbRepresentant);
+
+
+
     return 1;
 }
